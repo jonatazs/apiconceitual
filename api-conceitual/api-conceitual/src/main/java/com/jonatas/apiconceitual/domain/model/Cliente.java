@@ -1,6 +1,7 @@
 package com.jonatas.apiconceitual.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.apiconceitual.domain.model.enums.TipoCliente;
 import com.sun.istack.NotNull;
 
@@ -22,7 +23,7 @@ public class Cliente {
     private Integer tipo;
 
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
