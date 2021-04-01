@@ -20,12 +20,12 @@ public class Endereco {
 
     @JsonManagedReference
     @ManyToOne
-    @JoinTable(name = "ENREDECO_CLIENTE",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "endereco_id")
-    )
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "cidade_id")
     private Cidade cidade;
 
 
@@ -33,13 +33,14 @@ public class Endereco {
 
     }
 
-    public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep, Cidade cidade) {
+    public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
         this.cep = cep;
+        this.cliente = cliente;
         this.cidade = cidade;
 
     }
@@ -90,6 +91,22 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
 

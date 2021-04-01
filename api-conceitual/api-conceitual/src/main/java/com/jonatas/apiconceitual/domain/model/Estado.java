@@ -47,6 +47,14 @@ public class Estado {
         this.nome = nome;
     }
 
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

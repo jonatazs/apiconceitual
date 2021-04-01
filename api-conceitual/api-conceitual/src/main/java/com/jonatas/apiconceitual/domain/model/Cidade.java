@@ -1,8 +1,11 @@
 package com.jonatas.apiconceitual.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,11 +18,12 @@ public class Cidade {
 
     @JsonBackReference
     @ManyToOne
-    @JoinTable(name = "CIDADE_ESTADO",
-            joinColumns = @JoinColumn(name = "cidade_id"),
-            inverseJoinColumns = @JoinColumn(name = "estado_id")
-    )
+    @JoinColumn(name = "estado_id")
     private Estado estado;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "cidade")
+    private List<Endereco> enderecos = new ArrayList<>();
 
 
     public Cidade(){
@@ -46,6 +50,14 @@ public class Cidade {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
 

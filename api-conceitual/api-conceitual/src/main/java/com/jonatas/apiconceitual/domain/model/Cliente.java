@@ -5,9 +5,7 @@ import com.jonatas.apiconceitual.domain.model.enums.TipoCliente;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Cliente {
@@ -21,15 +19,17 @@ public class Cliente {
     private String email;
     @NotNull
     private String cpfOuCnpj;
-    private TipoCliente tipo;
+    private Integer tipo;
 
 
     @JsonBackReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @ManyToOne
-    private List<Telefone> telefones = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
+    private Set<String> telefones = new HashSet<>();
 
 
     public Cliente(){
@@ -41,7 +41,7 @@ public class Cliente {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo;
+        this.tipo = tipo.getCod();
     }
 
     public Long getId() {
@@ -77,11 +77,27 @@ public class Cliente {
     }
 
     public TipoCliente getTipo() {
-        return tipo;
+        return TipoCliente.toEnum(tipo);
     }
 
     public void setTipo(TipoCliente tipo) {
-        this.tipo = tipo;
+        this.tipo = tipo.getCod();
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public Set<String> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Set<String> telefones) {
+        this.telefones = telefones;
     }
 
     @Override

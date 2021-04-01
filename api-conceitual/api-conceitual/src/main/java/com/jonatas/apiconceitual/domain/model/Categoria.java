@@ -1,5 +1,6 @@
 package com.jonatas.apiconceitual.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
@@ -18,8 +19,9 @@ public class Categoria {
     @NotNull
     private String nome;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
     private List<Produto> produtos = new ArrayList<>();
 
 
