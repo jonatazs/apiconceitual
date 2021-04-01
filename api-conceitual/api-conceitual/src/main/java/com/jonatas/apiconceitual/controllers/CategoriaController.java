@@ -4,6 +4,7 @@ import com.jonatas.apiconceitual.domain.model.Categoria;
 import com.jonatas.apiconceitual.domain.services.CategoriaService;
 import com.jonatas.apiconceitual.dto.CategoriaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +59,16 @@ public class CategoriaController {
         return ResponseEntity.noContent().build();
     }
 
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction){
+        Page<Categoria> list = categoriaService.findPage(page, linesPerPage,orderBy,direction);
+        Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
+        return ResponseEntity.status(HttpStatus.OK).body(listDto);
+    }
 
 }
