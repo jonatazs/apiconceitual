@@ -2,6 +2,9 @@ package com.jonatas.apiconceitual.domain.model;
 
 import com.jonatas.apiconceitual.domain.model.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PagamentoComCartao extends Pagamento{
 
     private Integer numeroDeParcelas;

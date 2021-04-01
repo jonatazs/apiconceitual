@@ -2,8 +2,10 @@ package com.jonatas.apiconceitual.domain.model;
 
 import com.jonatas.apiconceitual.domain.model.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 
     private Date dataVencimento;
