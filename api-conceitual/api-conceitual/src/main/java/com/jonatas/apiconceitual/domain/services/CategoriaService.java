@@ -18,11 +18,11 @@ public class CategoriaService {
 
 
 
-    public List<Categoria> buscarTodos(){
+    public List<Categoria> findAll(){
         return categoriaRepository.findAll();
     }
 
-    public Categoria buscarPorId(Long id){
+    public Categoria findById(Long id){
             Optional<Categoria> obj = (Optional<Categoria>) categoriaRepository.findById(id);
             return obj.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
@@ -32,4 +32,8 @@ public class CategoriaService {
         return categoriaRepository.save(obj);
     }
 
+    public Categoria update(Categoria obj) {
+        findById(obj.getId());
+        return categoriaRepository.save(obj);
+    }
 }

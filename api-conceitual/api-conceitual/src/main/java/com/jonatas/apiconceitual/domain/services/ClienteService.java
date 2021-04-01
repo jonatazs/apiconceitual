@@ -17,11 +17,11 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
 
-    public List<Cliente> buscarTodos(){
+    public List<Cliente> findAll(){
         return clienteRepository.findAll();
     }
 
-    public Cliente buscarPorID(Long id){
+    public Cliente findById(Long id){
         Optional<Cliente> obj = (Optional<Cliente>) clienteRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado" + id + "Tipo, " + Cliente.class.getName()));
     }
@@ -31,4 +31,8 @@ public class ClienteService {
         return clienteRepository.save(obj);
     }
 
+    public Cliente update(Cliente obj) {
+        findById(obj.getId());
+        return clienteRepository.save(obj);
+    }
 }

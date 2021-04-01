@@ -18,12 +18,12 @@ public class EstadoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    public List<Estado> buscarTodos(){
+    public List<Estado> findAll(){
         return estadoRepository.findAll();
     }
 
 
-    public Estado buscarPorId(Long id){
+    public Estado findById(Long id){
         Optional<Estado> obj = (Optional<Estado>) estadoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Estado não encontrado! Id: " + id + ", Tipo: " + Estado.class.getName()));
     }
@@ -34,7 +34,8 @@ public class EstadoService {
     }
 
 
-
-
-
+    public Estado update(Estado obj) {
+        findById(obj.getId());
+        return estadoRepository.save(obj);
+    }
 }

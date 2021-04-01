@@ -19,11 +19,11 @@ public class PedidoService {
 
 
 
-    public List<Pedido> buscarTodos(){
+    public List<Pedido> findAll(){
         return pedidoRepository.findAll();
     }
 
-    public Pedido buscarPorId(Long id){
+    public Pedido findById(Long id){
         Optional<Pedido> obj = (Optional<Pedido>) pedidoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Pedido não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
@@ -34,4 +34,8 @@ public class PedidoService {
     }
 
 
+    public Pedido update(Pedido obj) {
+        findById(obj.getId());
+        return pedidoRepository.save(obj);
+    }
 }

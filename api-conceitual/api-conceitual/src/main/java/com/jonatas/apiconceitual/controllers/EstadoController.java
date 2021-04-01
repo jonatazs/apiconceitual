@@ -21,13 +21,13 @@ public class EstadoController {
 
     @GetMapping
     public ResponseEntity<List<Estado>> findAll(){
-        List<Estado> obj = estadoService.buscarTodos();
+        List<Estado> obj = estadoService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Estado> findById(@PathVariable Long id){
-        Estado obj = estadoService.buscarPorId(id);
+        Estado obj = estadoService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
@@ -38,6 +38,14 @@ public class EstadoController {
         return ResponseEntity.created(uri).build();
     }
 
+    @RequestMapping("/{id}")
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody Estado obj, @PathVariable Long id){
+        obj.setId(id);
+        obj = estadoService.update(obj);
+        return ResponseEntity.noContent().build();
+
+    }
 
 
 

@@ -21,13 +21,13 @@ public class CidadeController {
 
     @GetMapping
     public ResponseEntity<List<Cidade>> findAll(){
-        List<Cidade> obj = cidadeService.buscarTodos();
+        List<Cidade> obj = cidadeService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cidade> findById(@PathVariable Long id){
-        Cidade obj = cidadeService.buscarPorId(id);
+        Cidade obj = cidadeService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
@@ -39,7 +39,13 @@ public class CidadeController {
         return ResponseEntity.created(uri).build();
     }
 
-
+    @PutMapping
+    @RequestMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody Cidade obj, @PathVariable Long id){
+        obj.setId(id);
+        obj = cidadeService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

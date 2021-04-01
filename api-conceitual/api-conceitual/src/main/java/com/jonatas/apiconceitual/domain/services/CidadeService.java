@@ -17,11 +17,11 @@ public class CidadeService {
     @Autowired
     private CidadeRepository cidadeRepository;
 
-    public List<Cidade> buscarTodos(){
+    public List<Cidade> findAll(){
         return cidadeRepository.findAll();
     }
 
-    public Cidade buscarPorId(Long id){
+    public Cidade findById(Long id){
         Optional<Cidade> obj = (Optional<Cidade>) cidadeRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Cidade não encontrada! Id: " + id + ", Tipo: " + Cidade.class.getName()));
     }
@@ -31,4 +31,8 @@ public class CidadeService {
         return cidadeRepository.save(obj);
     }
 
+    public Cidade update(Cidade obj) {
+        findById(obj.getId());
+        return cidadeRepository.save(obj);
+    }
 }

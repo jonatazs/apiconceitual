@@ -19,11 +19,11 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public List<Produto> buscarTodos(){
+    public List<Produto> findAll(){
         return produtoRepository.findAll();
     }
 
-    public Produto buscarPorId(Long id){
+    public Produto findById(Long id){
         Optional<Produto> obj = (Optional<Produto>) produtoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
     }
@@ -35,4 +35,8 @@ public class ProdutoService {
     }
 
 
+    public Produto update(Produto obj) {
+        findById(obj.getId());
+        return produtoRepository.save(obj);
+    }
 }

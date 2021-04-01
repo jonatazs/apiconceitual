@@ -20,13 +20,13 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<List<Cliente>> findAll(){
-        List<Cliente> obj = clienteService.buscarTodos();
+        List<Cliente> obj = clienteService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> find(@PathVariable Long id){
-        Cliente obj = clienteService.buscarPorID(id);
+        Cliente obj = clienteService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
@@ -37,6 +37,13 @@ public class ClienteController {
         return ResponseEntity.created(uri).build();
     }
 
+    @RequestMapping("/{id}")
+    @PutMapping
+    public  ResponseEntity<Void> update(@RequestBody Cliente obj, @PathVariable Long id){
+        obj.setId(id);
+        obj = clienteService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

@@ -21,13 +21,13 @@ public class ProdutoController {
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll(){
-        List<Produto> obj = produtoService.buscarTodos();
+        List<Produto> obj = produtoService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> find(@PathVariable Long id){
-        Produto obj = produtoService.buscarPorId(id);
+        Produto obj = produtoService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(obj);
     }
 
@@ -36,6 +36,15 @@ public class ProdutoController {
         obj = produtoService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+
+    @RequestMapping("/{id}")
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody Produto obj, @PathVariable Long id){
+        obj.setId(id);
+        obj = produtoService.update(obj);
+        return ResponseEntity.noContent().build();
     }
 
 
