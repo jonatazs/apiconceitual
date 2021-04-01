@@ -3,8 +3,10 @@ package com.jonatas.apiconceitual.domain.services;
 import com.jonatas.apiconceitual.domain.model.Categoria;
 import com.jonatas.apiconceitual.domain.model.Produto;
 import com.jonatas.apiconceitual.domain.repositories.ProdutoRepository;
+import com.jonatas.apiconceitual.domain.services.exceptions.DataIntegrityException;
 import com.jonatas.apiconceitual.domain.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +40,15 @@ public class ProdutoService {
     public Produto update(Produto obj) {
         findById(obj.getId());
         return produtoRepository.save(obj);
+    }
+
+    public void deleteById(Long id) {
+        findById(id);
+        try {
+            produtoRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir uma produto que possui itens de pedido");
+        }
     }
 }

@@ -3,8 +3,10 @@ package com.jonatas.apiconceitual.domain.services;
 
 import com.jonatas.apiconceitual.domain.model.Categoria;
 import com.jonatas.apiconceitual.domain.repositories.CategoriaRepository;
+import com.jonatas.apiconceitual.domain.services.exceptions.DataIntegrityException;
 import com.jonatas.apiconceitual.domain.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,4 +38,14 @@ public class CategoriaService {
         findById(obj.getId());
         return categoriaRepository.save(obj);
     }
+
+    public void deleteById(Long id) {
+        findById(id);
+        try {
+            categoriaRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+        }
+        }
 }

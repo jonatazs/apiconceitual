@@ -47,6 +47,14 @@ public class EstadoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        estadoService.deleteById(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+
 
 
 }

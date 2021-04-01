@@ -4,6 +4,7 @@ import com.jonatas.apiconceitual.domain.model.Categoria;
 import com.jonatas.apiconceitual.domain.model.Pedido;
 import com.jonatas.apiconceitual.domain.repositories.CategoriaRepository;
 import com.jonatas.apiconceitual.domain.repositories.PedidoRepository;
+import com.jonatas.apiconceitual.domain.services.exceptions.DataIntegrityException;
 import com.jonatas.apiconceitual.domain.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,14 @@ public class PedidoService {
     public Pedido update(Pedido obj) {
         findById(obj.getId());
         return pedidoRepository.save(obj);
+    }
+
+    public void deleteById(Long id) {
+        findById(id);
+        try{
+            pedidoRepository.deleteById(id);
+        }catch (DataIntegrityException e){
+            throw new DataIntegrityException("Não é possível excluir um pedido que tem estado de pagamentos já efetuados");
+        }
     }
 }

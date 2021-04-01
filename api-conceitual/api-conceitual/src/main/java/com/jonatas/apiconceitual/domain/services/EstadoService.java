@@ -4,8 +4,10 @@ package com.jonatas.apiconceitual.domain.services;
 import com.jonatas.apiconceitual.domain.model.Estado;
 import com.jonatas.apiconceitual.domain.model.Produto;
 import com.jonatas.apiconceitual.domain.repositories.EstadoRepository;
+import com.jonatas.apiconceitual.domain.services.exceptions.DataIntegrityException;
 import com.jonatas.apiconceitual.domain.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -37,5 +39,14 @@ public class EstadoService {
     public Estado update(Estado obj) {
         findById(obj.getId());
         return estadoRepository.save(obj);
+    }
+
+    public void deleteById(Long id) {
+        findById(id);
+        try{
+            estadoRepository.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir um Estado que possui cidades");
+        }
     }
 }
