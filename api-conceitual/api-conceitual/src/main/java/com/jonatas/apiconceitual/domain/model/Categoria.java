@@ -19,9 +19,9 @@ public class Categoria {
     @NotNull
     private String nome;
 
-    //@JsonManagedReference
+
     @ManyToMany(mappedBy = "categorias")
-    @JsonIgnore
+
     private List<Produto> produtos = new ArrayList<>();
 
 

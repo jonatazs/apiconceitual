@@ -1,6 +1,7 @@
 package com.jonatas.apiconceitual.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,12 +17,12 @@ public class Cidade {
     private Long id;
     private String nome;
 
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cidade")
     private List<Endereco> enderecos = new ArrayList<>();
 

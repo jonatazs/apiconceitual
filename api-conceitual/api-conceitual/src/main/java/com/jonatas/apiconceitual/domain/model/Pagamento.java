@@ -1,5 +1,6 @@
 package com.jonatas.apiconceitual.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jonatas.apiconceitual.domain.model.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public abstract class Pagamento {
 
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

@@ -1,6 +1,7 @@
 package com.jonatas.apiconceitual.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -19,12 +20,12 @@ public class Endereco {
     private String cep;
 
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @JsonManagedReference
+
     @ManyToOne
     @JoinColumn(name = "cidade_id")
     private Cidade cidade;
