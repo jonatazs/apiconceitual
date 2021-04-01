@@ -33,6 +33,8 @@ public class Cliente {
     private Set<String> telefones = new HashSet<>();
 
 
+    private List<Pedido> pedidos = new ArrayList<>();
+
     public Cliente(){
 
     }
@@ -99,6 +101,10 @@ public class Cliente {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
