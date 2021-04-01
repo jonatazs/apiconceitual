@@ -1,9 +1,13 @@
 package com.jonatas.apiconceitual.domain.model;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
 public class ItemPedido {
 
+    @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;

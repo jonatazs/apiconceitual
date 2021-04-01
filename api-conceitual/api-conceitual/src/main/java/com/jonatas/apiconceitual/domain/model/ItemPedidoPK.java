@@ -3,10 +3,13 @@ package com.jonatas.apiconceitual.domain.model;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class ItemPedidoPK {
+public class ItemPedidoPK implements Serializable {
+//Item Pedido Primary Key
+    // Só funciona com o implements serializable pesquisar o porque
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
